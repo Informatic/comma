@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   src = ./.;
 
-  buildInputs = [ sqlite.out nix.out fzy.out ];
+  buildInputs = [ sqlite.bin nix.out fzy.out ];
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = let
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sed -e 's/@OVERLAY_PACKAGES@/${caseCondition}/' < , > $out/bin/,
     chmod +x $out/bin/,
     wrapProgram $out/bin/, \
-      --prefix PATH : ${sqlite.out}/bin \
+      --prefix PATH : ${sqlite.bin}/bin \
       --prefix PATH : ${nix.out}/bin \
       --prefix PATH : ${fzy.out}/bin
 
